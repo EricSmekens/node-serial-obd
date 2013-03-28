@@ -156,10 +156,16 @@ describe("node-serial-obd", function() {
 
 
 
-//    it("can close the bluetooth serial port", function() {
-//        btOBDReader.disconnect();
-//        expect(btOBDReader.connected).toEqual(false);
-//        btOBDReader = undefined;
-//    });
+    it("can close the bluetooth serial port", function() {
+        btOBDReader.disconnect();
+        waitsFor(function () {
+            return !(btOBDReader.connected);
+        }, "Disconnect time expired", 2500); //Time for disconnect.
+        runs(function() {
+            expect(btOBDReader.connected).toEqual(false);
+            btOBDReader = undefined;
+        })
+
+    });
 
 });
