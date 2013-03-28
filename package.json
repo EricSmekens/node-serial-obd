@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com:EricSmekens/node-bluetooth-obd.git"
+    "url": "git://github.com:EricSmekens/node-obd-ii.git"
   },
   "dependencies": {
     "serialport2": "0.0.5",

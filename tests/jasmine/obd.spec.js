@@ -17,7 +17,7 @@
  * Author - Eric Smekens
  ******************************************************************************/
 
-describe("node-bluetooth-obd", function() {
+describe("node-serial-obd", function() {
 
     var OBDReader = require('../../lib/obd.js');
     var btOBDReader = new OBDReader();
