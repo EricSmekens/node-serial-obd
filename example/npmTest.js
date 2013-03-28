@@ -19,15 +19,15 @@
 
 
 var OBDReader = require('../lib/obd.js');
-var btOBDReader = new OBDReader();
+var serialOBDReader = new OBDReader();
 var dataReceivedMarker = new Object();
 
-btOBDReader.on('dataReceived', function(data){
+serialOBDReader.on('dataReceived', function(data){
     console.log(data);
     dataReceivedMarker = data;
 });
 
-btOBDReader.on('connected', function(data){
+serialOBDReader.on('connected', function(data){
     this.requestValueByName("vss"); //vss = vehicle speed sensor
 
     this.addPoller("vss");
@@ -37,6 +37,6 @@ btOBDReader.on('connected', function(data){
 });
 
 
-btOBDReader.connect();
+serialOBDReader.connect();
 
 

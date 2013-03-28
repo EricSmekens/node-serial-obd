@@ -20,44 +20,44 @@
 describe("node-serial-obd", function() {
 
     var OBDReader = require('../../lib/obd.js');
-    var btOBDReader = new OBDReader();
+    var serialOBDReader = new OBDReader();
     var dataReceivedMarker = new Object();
 
-    btOBDReader.on('dataReceived', function(data){
+    serialOBDReader.on('dataReceived', function(data){
         console.log(data);
         dataReceivedMarker = data;
     });
 
 
     it("should be defined", function() {
-        expect(btOBDReader).toBeDefined();
+        expect(serialOBDReader).toBeDefined();
     });
 
     it("has the necessary init properties as btOBDReader object", function() {
         //Functions
-        expect(btOBDReader.connect).toEqual(jasmine.any(Function));
-        expect(btOBDReader.disconnect).toEqual(jasmine.any(Function));
-        expect(btOBDReader.write).toEqual(jasmine.any(Function));
-        expect(btOBDReader.on).toEqual(jasmine.any(Function)); //Has events
+        expect(serialOBDReader.connect).toEqual(jasmine.any(Function));
+        expect(serialOBDReader.disconnect).toEqual(jasmine.any(Function));
+        expect(serialOBDReader.write).toEqual(jasmine.any(Function));
+        expect(serialOBDReader.on).toEqual(jasmine.any(Function)); //Has events
         //TODO: check events seperate
         //Vars
-        expect(btOBDReader.connected).toEqual(false);
+        expect(serialOBDReader.connected).toEqual(false);
     });
 
     it("can connect to a bluetooth serial port", function() {
-        btOBDReader.connect();
+        serialOBDReader.connect();
         waitsFor(function() {
-            return btOBDReader.connected;
+            return serialOBDReader.connected;
         }, "It took too long to connect.", 20000);
         runs(function() {
-            expect(btOBDReader.connected).toEqual(true);
+            expect(serialOBDReader.connected).toEqual(true);
         });
     });
 
     describe("the write function", function(){
         it("can write ascii to the obd-module", function() {
             dataReceivedMarker = false;
-            btOBDReader.write('010D'); //010C stands for RPM
+            serialOBDReader.write('010D'); //010C stands for RPM
         });
 
         it("can receive and convert the RPM-hex value to something right", function() {
@@ -77,7 +77,7 @@ describe("node-serial-obd", function() {
 
         it("can retrieve a value by name", function () {
             dataReceivedMarker = false;
-            btOBDReader.requestValueByName("vss"); //vss = vehicle speed sensor
+            serialOBDReader.requestValueByName("vss"); //vss = vehicle speed sensor
 
             waitsFor(function () {
                 return dataReceivedMarker;
@@ -96,16 +96,16 @@ describe("node-serial-obd", function() {
     describe("pollers", function() {
         it("are defined", function() {
             //expect(btOBDReader.activePollers).toBeDefined(); //Not visible outside class.
-            expect(btOBDReader.addPoller).toBeDefined();
-            expect(btOBDReader.removePoller).toBeDefined();
-            expect(btOBDReader.removeAllPollers).toBeDefined();
-            expect(btOBDReader.startPolling).toBeDefined();
-            expect(btOBDReader.stopPolling).toBeDefined();
+            expect(serialOBDReader.addPoller).toBeDefined();
+            expect(serialOBDReader.removePoller).toBeDefined();
+            expect(serialOBDReader.removeAllPollers).toBeDefined();
+            expect(serialOBDReader.startPolling).toBeDefined();
+            expect(serialOBDReader.stopPolling).toBeDefined();
         });
         it("can be added", function(){
             dataReceivedMarker = false;
-            btOBDReader.addPoller("vss");
-            btOBDReader.startPolling();
+            serialOBDReader.addPoller("vss");
+            serialOBDReader.startPolling();
             waitsFor(function () {
                 return dataReceivedMarker;
             }, "Receiving time expired", 4000);
@@ -133,8 +133,8 @@ describe("node-serial-obd", function() {
         });
         it("can be removed", function(){
             runs(function(){
-                btOBDReader.removePoller("vss");
-                btOBDReader.stopPolling();
+                serialOBDReader.removePoller("vss");
+                serialOBDReader.stopPolling();
                 waits(100);
                 dataReceivedMarker = false;
                 //Now, no data should come in.
@@ -157,13 +157,13 @@ describe("node-serial-obd", function() {
 
 
     it("can close the bluetooth serial port", function() {
-        btOBDReader.disconnect();
+        serialOBDReader.disconnect();
         waitsFor(function () {
-            return !(btOBDReader.connected);
+            return !(serialOBDReader.connected);
         }, "Disconnect time expired", 2500); //Time for disconnect.
         runs(function() {
-            expect(btOBDReader.connected).toEqual(false);
-            btOBDReader = undefined;
+            expect(serialOBDReader.connected).toEqual(false);
+            serialOBDReader = undefined;
         })
 
     });
