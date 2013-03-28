@@ -41,13 +41,7 @@ serialOBDReader.connect();
 ```
 ## API
 
-### BluetoothSerialPort
-
-#### Event: ('data', data)
-
-Emitted when data is read from the serial port connection.
-
-* data - the data that was read
+###Coming soon
 
 ## LICENSE
 
