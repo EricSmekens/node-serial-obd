@@ -1,0 +1,47 @@
+# build stuff
+build
+out
+*.node
+linker.lock
+*.o
+*.class
+
+# node_modules
+/node_modules/
+!/node_modules/webinos/
+!/node_modules/expat2.js
+!/node_modules/xmldigsig.js
+
+webinos/api/geolocation/node_modules
+
+# generated certificates
+*.pem
+*.csr
+*.crl
+*.srl
+
+# target folders
+target
+
+# reports folders
+reports
+
+# intellij idea project files
+.idea
+*.iml
+*.ipr
+*.iws
+
+# vstudio prj files
+*.sln
+*.vcxproj*
+
+# waf lock files
+.lock-wscript
+
+# backup files
+*~
+
+# vi swap file
+*.swp
+

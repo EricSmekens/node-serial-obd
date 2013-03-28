@@ -1,0 +1,33 @@
+{
+  "name": "node-bluetooth-obd",
+  "version": "0.0.1",
+  "description": "Utility to read OBD2 data from a bluetooth elm",
+  "author": {
+    "name": "Eric Smekens",
+    "email": "ericsmekens@msn.com",
+    "url": "http://tno.nl"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:EricSmekens/node-bluetooth-obd.git"
+  },
+  "dependencies": {
+    "serialport2": "0.0.5",
+    "async": "~0.1.22"
+    
+  },
+  "devDependencies": {},
+  "main": "index",
+  "engines": {
+    "node" : ">= 0.6.0"
+  , "npm" : ">= 1.1.17"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [
+    "OBD",
+    "car",
+    "serial"
+  ]
+}
