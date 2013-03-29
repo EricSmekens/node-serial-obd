@@ -157,28 +157,28 @@ describe("node-serial-obd", function() {
     describe("DTC", function() { //Vehicle Identification number
         it("can be read", function(){
             dataReceivedMarker = false;
-            serialOBDReader.requestValueByName("vin");
+            serialOBDReader.requestValueByName("requestdtc");
             waitsFor(function () {
                 return dataReceivedMarker;
             }, "Receiving time expired", 4000);
             runs(function() {
-                expect(dataReceivedMarker).toEqual(jasmine.any(String));
+                expect(dataReceivedMarker.value).toEqual(jasmine.any(String));
                 dataReceivedMarker = false;
             });
         });
-        it("can be read", function(){
+        it("can be cleared", function(){
             dataReceivedMarker = false;
-            serialOBDReader.requestValueByName("vin");
+            serialOBDReader.requestValueByName("cleardtc");
             waitsFor(function () {
                 return dataReceivedMarker;
             }, "Receiving time expired", 4000);
             runs(function() {
-                expect(dataReceivedMarker).toEqual(jasmine.any(String));
+                expect(dataReceivedMarker.value).toEqual(jasmine.any(String));
                 dataReceivedMarker = false;
             });
         });
     });
-    
+
 /*  //Not supported with OBDsim.
     describe("can read the VIN", function() { //Vehicle Identification number
         it("can be sent", function(){
