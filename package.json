@@ -1,5 +1,5 @@
 {
-  "name": "node-serial-obd",
+  "name": "serial-obd",
   "version": "0.0.1",
   "description": "Utility to read OBD2 data from a bluetooth elm",
   "author": {
@@ -16,8 +16,7 @@
   },
   "main": "./lib/obd.js",
   "dependencies": {
-    "serialport2": "0.0.5",
-    "async": "~0.1.22"
+    "serialport2": "0.0.5"
   },
   "devDependencies": {},
   "main": "index",
