@@ -4,15 +4,14 @@ serial-obd
 # Serial communication for OBD-II ELM327 devices.
 This node module lets you communicate over a serial port with OBD-II ELM327 Connectors using Node.js.
 # Limitations
-* Only tested on Linux
-* Only available on Linux and BSD like systems
-* Only tested with rfcomm, and not with ttyS0 yet.
+* Only tested on Ubuntu
+* Only tested with rfcomm, and not with actual serial port yet.
 * Only tested on ELM327 devices.
 * --WORK IN PROGRESS-- For the moment communicates with /dev/rfcomm0.
 * Not all OBD-II Commands are implemented yet.
 
 
-# This is an alpha version, so don't expect it to work.
+## This is an alpha version, so don't expect it to work without changing code.
 
 # Pre-requests
 * If it's a Bluetooth ELM327, then it should already be paired and connected with rfcomm connect!
@@ -62,63 +61,99 @@ Emitted when the connection is set up (port is open).
 
 #### OBDReader()
 
-Creates an OBDReader.
+Creates an instance of OBDReader.
 
-#### OBDReader.connect()
+#### getPIDByName(Name)
 
-Opens the port and adds all events.
+Find a PID-value by name.
 
-#### OBDReader.connect(bluetoothAddress[, successCallback, errorCallback])
+##### Params: 
 
-Connects to a remote bluetooth device.
+* **name** *Name* of the PID you want the hexadecimal (in ASCII text) value of.
 
-* bluetoothAddress - the address of the remote Bluetooth device.
-* [successCallback] - called when a connection has been established.
-* [errorCallback(msg)] - called when the connection attempt results in an error.
+##### Return:
 
-#### OBDReader.close()
+* **string** PID in hexadecimal ASCII
 
-Closes the port. Rfcomm connection will remain open.
+#### parseOBDCommand(hexString)
 
-#### OBDReader.write(message)
+Parses a hexadecimal string to a reply object. Uses PIDS. (obdInfo.js)
 
-Writes a string to the serial port connection.
+##### Params: 
 
-* message - the OBD-II or ELM command-string to be written to the port.
+* **string** *hexString* Hexadecimal value in string that is received over the serialport.
 
-#### OBDReader.requestValueByName(name)
+##### Return:
 
-Converts a PID name to an actual PID-string and writes it to the serial port connection.
+* **Object** reply - The reply.
 
-* name - the OBD-II name of the PID you want to request.
+* **string** reply.value - The value that is already converted. This can be a PID converted answer or &quot;OK&quot; or &quot;NO DATA&quot;.
 
-#### OBDReader.addPoller(name)
+* **string** reply.name - The name. --! Only if the reply is a PID.
 
-Adds a PID name that will be polled frequently.
+* **string** reply.mode - The mode of the PID. --! Only if the reply is a PID.
 
-* name - the OBD-II name of the PID you want to be polled.
+* **string** reply.pid - The PID. --! Only if the reply is a PID.
 
-#### OBDReader.removePoller(name)
+#### connect()
 
-Removes a PID name that will be removed from the activePollers.
+Connect/Open the serial port and add events to serialport.
 
-* name - the OBD-II name of the PID you want to be removed.
+#### disconnect()
 
-#### OBDReader.removeAllPollers(name)
+Disconnects/closes the port.
 
-Removes all the pollers.
+#### write(message)
 
-#### OBDReader.startPolling(name)
+Writes a message to the port.
 
-Start polling the pollers you added with addPoller().
+##### Params: 
 
-#### OBDReader.stopPolling(name)
+* **string** *message* The PID or AT Command you want to send. Without \r or \n!
+
+#### requestValueByName(name)
+
+Writes a PID value by entering a pid supported name.
+
+##### Params: 
+
+* **string** *name* Look into obdInfo.js for all PIDS.
+
+#### addPoller(name)
+
+Adds a poller to the poller-array.
+
+##### Params: 
+
+* **string** *name* Name of the poller you want to add.
+
+#### removePoller(name)
+
+Removes an poller.
+
+##### Params: 
+
+* **string** *name* Name of the poller you want to remove.
+
+#### removeAllPollers()
+
+Removes all pollers.
+
+#### writePollers()
+
+Writes all active pollers.
+
+#### startPolling()
+
+Starts polling.
+
+#### stopPolling()
 
 Stops polling.
 
 # LICENSE
 
-This module is available under a [FreeBSD license](http://opensource.org/licenses/BSD-2-Clause), see also the [LICENSE file](https://raw.github.com/eelcocramer/node-bluetooth-serial-port/master/LICENSE) for details.
+This module is available under a [FreeBSD license](http://opensource.org/licenses/BSD-2-Clause), see also the [LICENSE file](https://raw.github.com/EricSmekens/node-serial-obd/master/LICENSE) for details.
 
 
 
