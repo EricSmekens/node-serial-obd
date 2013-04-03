@@ -3,3 +3,4 @@ resources/
 
 *.csv
 log.json
+*.iml
