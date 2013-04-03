@@ -22,18 +22,30 @@ var OBDReader = require('../lib/obd.js');
 var serialOBDReader = new OBDReader();
 var dataReceivedMarker = new Object();
 
-serialOBDReader.on('dataReceived', function(data){
+serialOBDReader.on('dataReceived', function (data) {
+    var currentDate = new Date();
+    console.log(currentDate.getTime());
     console.log(data);
     dataReceivedMarker = data;
 });
 
-serialOBDReader.on('connected', function(data){
-    this.requestValueByName("vss"); //vss = vehicle speed sensor
+serialOBDReader.on('connected', function (data) {
+    //this.requestValueByName("vss"); //vss = vehicle speed sensor
 
-    this.addPoller("vss");
-    this.addPoller("rpm");
-    this.addPoller("temp");
-    this.startPolling();
+//    this.addPoller("vss");
+//    this.addPoller("rpm");
+//    this.addPoller("temp");
+//    this.addPoller("load_pct");
+//    this.addPoller("map");
+//    this.addPoller("frp");
+
+    //this.startPolling();
+
+    //Custom Poller
+    var self = this;
+    var interval = setInterval(function () {
+        self.write('010D\r');
+    }, 10);
 });
 
 
