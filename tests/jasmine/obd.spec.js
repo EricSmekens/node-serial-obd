@@ -60,7 +60,7 @@ describe("node-serial-obd", function () {
     describe("the write function", function () {
         it("can write ascii to the obd-module", function () {
             dataReceivedMarker = false;
-            serialOBDReader.write('010D'); //010C stands for RPM
+            serialOBDReader.write('010D'); //010D stands for speed
         });
 
         it("can receive and convert the RPM-hex value to something right", function () {
