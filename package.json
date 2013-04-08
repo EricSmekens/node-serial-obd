@@ -1,11 +1,11 @@
 {
   "name": "serial-obd",
-  "version": "0.0.1",
-  "description": "Utility to read OBD2 data from a bluetooth elm",
+  "version": "0.0.2",
+  "description": "Package for communicating with a bluetooth OBD-II reader",
   "author": {
     "name": "Eric Smekens",
     "email": "ericsmekens@msn.com",
-    "url": "http://tno.nl"
+    "url": "http://github.com/EricSmekens"
   },
   "repository": {
     "type": "git",
