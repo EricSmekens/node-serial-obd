@@ -8,17 +8,14 @@ This node module lets you communicate over a serial port with OBD-II ELM327 Conn
 * Only tested on Ubuntu
 * Only tested with rfcomm, and not with actual serial port yet.
 * Only tested on ELM327 devices.
-* --WORK IN PROGRESS-- For the moment communicates with /dev/rfcomm0.
 * Not all OBD-II Commands are implemented yet.
-
-
-## This is an alpha version, so don't expect it to work without changing code.
 
 # Pre-requests
 * If it's a Bluetooth ELM327, then it should already be paired and connected with rfcomm connect!
 # Install
 `npm install node-serial-obd`
 # Documentation
+
 ## Basic usage
 
 ```javascript
@@ -60,7 +57,7 @@ Emitted when the connection is set up (port is open).
 
 * data - the data that was read and parsed to a reply object
 
-#### OBDReader()
+#### OBDReader(portName, options)
 
 Creates an instance of OBDReader.
 
@@ -104,7 +101,7 @@ Parses a hexadecimal string to a reply object. Uses PIDS. (obdInfo.js)
 
 #### connect()
 
-Connect/Open the serial port and add events to serialport.
+Connect/Open the serial port and add events to serialport. Also starts the intervalWriter that is used to write the queue.
 
 #### disconnect()
 
@@ -112,7 +109,7 @@ Disconnects/closes the port.
 
 #### write(message)
 
-Writes a message to the port.
+Writes a message to the port. (Queued!) All write functions call this function.
 
 ##### Params: 
 
@@ -154,6 +151,10 @@ Writes all active pollers.
 
 Starts polling.
 
+##### Params:
+
+* **number** *interval* Frequency how often all variables should be polled. (in ms) Default = 1000 ms.
+
 #### stopPolling()
 
 Stops polling.
@@ -161,7 +162,3 @@ Stops polling.
 # LICENSE
 
 This module is available under a [FreeBSD license](http://opensource.org/licenses/BSD-2-Clause), see also the [LICENSE file](https://raw.github.com/EricSmekens/node-serial-obd/master/LICENSE) for details.
-
-
-
-

@@ -110,7 +110,7 @@ describe("node-serial-obd", function () {
         it("can be added", function () {
             dataReceivedMarker = false;
             serialOBDReader.addPoller("vss");
-            serialOBDReader.startPolling();
+            serialOBDReader.startPolling(1000);
             waitsFor(function () {
                 return dataReceivedMarker;
             }, "Receiving time expired", 12000);
