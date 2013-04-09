@@ -23,8 +23,8 @@ var serialOBDReader = new OBDReader();
 var dataReceivedMarker = new Object();
 
 serialOBDReader.on('dataReceived', function (data) {
-    var currentDate = new Date();
-    console.log(currentDate.getTime());
+    //var currentDate = new Date();
+    //console.log(currentDate.getTime());
     console.log(data);
     dataReceivedMarker = data;
 });
@@ -45,10 +45,12 @@ serialOBDReader.on('connected', function (data) {
     var self = this;
     var interval = setInterval(function () {
         self.write('010D\r');
-    }, 10);
+        self.write('0105\r');
+        self.write('010C\r');
+        var currentDate = new Date();
+        console.log(currentDate.getTime());
+    }, 5000);
 });
 
 
 serialOBDReader.connect();
-
-
