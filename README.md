@@ -1,4 +1,4 @@
-serial-obd
+serial-obd 0.0.2
 ===============
 
 #
