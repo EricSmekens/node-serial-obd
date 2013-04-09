@@ -12,6 +12,7 @@ This node module lets you communicate over a serial port with OBD-II ELM327 Conn
 
 # Pre-requests
 * If it's a Bluetooth ELM327, then it should already be paired and connected with rfcomm connect!
+* You might need to run it with SUDO! (If it says: serial port X is not ready!
 # Install
 `npm install node-serial-obd`
 # Documentation
@@ -19,27 +20,31 @@ This node module lets you communicate over a serial port with OBD-II ELM327 Conn
 ## Basic usage
 
 ```javascript
-var OBDReader = require('node-serial-obd');
-var serialOBDReader = new OBDReader();
-var dataReceivedMarker = new Object();
+var OBDReader = require('serial-obd');
+var options = {};
+options.baudrate = 115200;
+var serialOBDReader = new OBDReader("/dev/rfcomm0", options);
+var dataReceivedMarker = {};
 
-serialOBDReader.on('dataReceived', function(data){
+serialOBDReader.on('dataReceived', function (data) {
     console.log(data);
+    dataReceivedMarker = data;
 });
 
-serialOBDReader.on('connected', function(data){
+serialOBDReader.on('connected', function (data) {
     this.requestValueByName("vss"); //vss = vehicle speed sensor
 
     this.addPoller("vss");
     this.addPoller("rpm");
     this.addPoller("temp");
-    this.startPolling();
-    //Time passes
-    this.stopPolling();
+    this.addPoller("load_pct");
+    this.addPoller("map");
+    this.addPoller("frp");
+
+    this.startPolling(2000); //Polls all added pollers each 2000 ms.
 });
 
-
-serialOBDReader.connect(); //Connect
+serialOBDReader.connect();
 ```
 ## API
 

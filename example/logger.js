@@ -19,8 +19,10 @@
 
 
 var OBDReader = require('../lib/obd.js');
-var serialOBDReader = new OBDReader();
-var dataReceivedMarker = new Object();
+var options = {};
+options.baudrate = 115200;
+var serialOBDReader = new OBDReader("/dev/rfcomm0", options);
+var dataReceivedMarker = {};
 
 serialOBDReader.on('dataReceived', function (data) {
     var currentDate = new Date();
