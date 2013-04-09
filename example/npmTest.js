@@ -19,12 +19,15 @@
 
 
 var OBDReader = require('../lib/obd.js');
-var serialOBDReader = new OBDReader();
-var dataReceivedMarker = new Object();
+
+var options = {};
+options.baudrate = 115200;
+var serialOBDReader = new OBDReader("/dev/rfcomm0", options);
+var dataReceivedMarker = {};
 
 serialOBDReader.on('dataReceived', function (data) {
-    //var currentDate = new Date();
-    //console.log(currentDate.getTime());
+    var currentDate = new Date();
+    console.log(currentDate.getTime());
     console.log(data);
     dataReceivedMarker = data;
 });
@@ -32,36 +35,36 @@ serialOBDReader.on('dataReceived', function (data) {
 serialOBDReader.on('connected', function (data) {
     //this.requestValueByName("vss"); //vss = vehicle speed sensor
 
-//    this.addPoller("vss");
-//    this.addPoller("rpm");
-//    this.addPoller("temp");
-//    this.addPoller("load_pct");
-//    this.addPoller("map");
-//    this.addPoller("frp");
+    this.addPoller("vss");
+    this.addPoller("rpm");
+    this.addPoller("temp");
+    this.addPoller("load_pct");
+    this.addPoller("map");
+    this.addPoller("frp");
 
-    //this.startPolling();
+    this.startPolling();
 
     //Custom Poller
-    var self = this;
-    var interval = setInterval(function () {
-        self.write('0105');
-        var currentDate = new Date();
-        console.log(currentDate.getTime());
-    }, 6000);
-    setTimeout(function () {
-        var interval2 = setInterval(function () {
-            self.write('010D');
-            var currentDate = new Date();
-            console.log(currentDate.getTime());
-        }, 6000);
-        setTimeout(function () {
-            var interval3 = setInterval(function () {
-                self.write('010C');
-                var currentDate = new Date();
-                console.log(currentDate.getTime());
-            }, 6000);
-        }, 2000);
-    }, 2000);
+//    var self = this;
+//    var interval = setInterval(function () {
+//        self.write('0105');
+//        var currentDate = new Date();
+//        console.log(currentDate.getTime());
+//    }, 6000);
+//    setTimeout(function () {
+//        var interval2 = setInterval(function () {
+//            self.write('010D');
+//            var currentDate = new Date();
+//            console.log(currentDate.getTime());
+//        }, 6000);
+//        setTimeout(function () {
+//            var interval3 = setInterval(function () {
+//                self.write('010C');
+//                var currentDate = new Date();
+//                console.log(currentDate.getTime());
+//            }, 6000);
+//        }, 2000);
+//    }, 2000);
 
 
 });

@@ -1,6 +1,7 @@
 serial-obd
 ===============
 
+#
 # Serial communication for OBD-II ELM327 devices.
 This node module lets you communicate over a serial port with OBD-II ELM327 Connectors using Node.js.
 # Limitations
@@ -62,6 +63,12 @@ Emitted when the connection is set up (port is open).
 #### OBDReader()
 
 Creates an instance of OBDReader.
+
+##### Params:
+
+* **string** *portName* Port that will be connected to. For example: &quot;/dev/rfcomm0&quot;
+
+* **Object** *options* Object that contains options, e.g.: baudrate, databits, stopbits, flowcontrol. Same options serialport module uses.
 
 #### getPIDByName(Name)
 

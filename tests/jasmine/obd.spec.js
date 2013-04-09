@@ -21,16 +21,18 @@
 
 describe("node-serial-obd", function () {
     'use strict';
-    var OBDReader, serialOBDReader, dataReceivedMarker;
+    var OBDReader, serialOBDReader, dataReceivedMarker, options;
     OBDReader = require('../../lib/obd.js');
-    serialOBDReader = new OBDReader();
-    dataReceivedMarker = {}; //New object.
+
+    options = {};
+    options.baudrate = 115200;
+    serialOBDReader = new OBDReader("/dev/rfcomm0", options);
+    dataReceivedMarker = {}; //New object
 
     serialOBDReader.on('dataReceived', function (data) {
         console.log(data);
         dataReceivedMarker = data;
     });
-
 
     it("should be defined", function () {
         expect(serialOBDReader).toBeDefined();
@@ -111,7 +113,7 @@ describe("node-serial-obd", function () {
             serialOBDReader.startPolling();
             waitsFor(function () {
                 return dataReceivedMarker;
-            }, "Receiving time expired", 4000);
+            }, "Receiving time expired", 12000);
             runs(function () {
                 expect(dataReceivedMarker).toEqual(jasmine.any(Object));
                 expect(dataReceivedMarker.mode).toEqual(jasmine.any(String));
@@ -125,7 +127,7 @@ describe("node-serial-obd", function () {
             //Wait second time without calling anything since last data reset. --> If data comes in, polling works.
             waitsFor(function () {
                 return dataReceivedMarker;
-            }, "Receiving time expired", 5000); //Time for polling.
+            }, "Receiving time expired", 12000); //Time for polling.
             runs(function () {
                 expect(dataReceivedMarker).toEqual(jasmine.any(Object));
                 expect(dataReceivedMarker.mode).toEqual(jasmine.any(String));
