@@ -44,12 +44,26 @@ serialOBDReader.on('connected', function (data) {
     //Custom Poller
     var self = this;
     var interval = setInterval(function () {
-        self.write('010D\r');
-        self.write('0105\r');
-        self.write('010C\r');
+        self.write('0105');
         var currentDate = new Date();
         console.log(currentDate.getTime());
-    }, 5000);
+    }, 6000);
+    setTimeout(function () {
+        var interval2 = setInterval(function () {
+            self.write('010D');
+            var currentDate = new Date();
+            console.log(currentDate.getTime());
+        }, 6000);
+        setTimeout(function () {
+            var interval3 = setInterval(function () {
+                self.write('010C');
+                var currentDate = new Date();
+                console.log(currentDate.getTime());
+            }, 6000);
+        }, 2000);
+    }, 2000);
+
+
 });
 
 
