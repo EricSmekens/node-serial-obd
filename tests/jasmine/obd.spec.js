@@ -57,6 +57,8 @@ describe("node-serial-obd", function () {
         runs(function () {
             expect(serialOBDReader.connected).toEqual(true);
         });
+        waits(2000); //Waiting for init strings to be sent and received!
+
     });
 
     describe("the write function", function () {

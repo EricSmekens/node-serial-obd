@@ -41,7 +41,7 @@ serialOBDReader.on('connected', function (data) {
     this.addPoller("map");
     this.addPoller("frp");
 
-    this.startPolling();
+    this.startPolling(3000);
 
     //Custom Poller
 //    var self = this;

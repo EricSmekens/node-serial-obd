@@ -1,7 +1,7 @@
 {
   "name": "serial-obd",
-  "version": "0.0.2",
-  "description": "Package for communicating with a bluetooth OBD-II reader",
+  "version": "0.0.3",
+  "description": "Package for communicating with a bluetooth OBD-II reader. Development STOPPED.",
   "author": {
     "name": "Eric Smekens",
     "email": "ericsmekens@msn.com",

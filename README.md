@@ -1,7 +1,10 @@
 serial-obd 0.0.2
 ===============
 
-#
+# USE bluetooth-obd if you use a bluetooth OBD-II Connector!
+# Development for this module does NOT continue. If you would like to make bluetooth-obd compatible, please co-operate with me on bluetooth-obd and we will see what we can do.
+
+
 # Serial communication for OBD-II ELM327 devices.
 This node module lets you communicate over a serial port with OBD-II ELM327 Connectors using Node.js.
 # Limitations
