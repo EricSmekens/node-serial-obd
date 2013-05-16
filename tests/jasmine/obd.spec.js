@@ -56,15 +56,16 @@ describe("node-serial-obd", function () {
         }, "It took too long to connect.", 20000);
         runs(function () {
             expect(serialOBDReader.connected).toEqual(true);
+            waits(5000); //Waiting for init strings to be sent and received!
         });
-        waits(2000); //Waiting for init strings to be sent and received!
+
 
     });
 
     describe("the write function", function () {
         it("can write ascii to the obd-module", function () {
             dataReceivedMarker = false;
-            serialOBDReader.write('010D'); //010D stands for speed
+            serialOBDReader.write('010C'); //010C stands for RPM
         });
 
         it("can receive and convert the RPM-hex value to something right", function () {
@@ -157,17 +158,36 @@ describe("node-serial-obd", function () {
     });
 
     describe("DTC", function () { //Diagnostic trouble code
-        it("can be read", function () {
+        it("can be counted", function () {
             dataReceivedMarker = false;
-            serialOBDReader.requestValueByName("requestdtc");
+            serialOBDReader.write('0101', 1); //Count DTC
             waitsFor(function () {
                 return dataReceivedMarker;
             }, "Receiving time expired", 4000);
             runs(function () {
-                expect(dataReceivedMarker.value).toEqual(jasmine.any(String));
+                expect(!isNaN(dataReceivedMarker.value.mil) || dataReceivedMarker.value === 'NO DATA');
+                expect(!isNaN(dataReceivedMarker.value.numberOfErrors) || dataReceivedMarker.value === 'NO DATA');
+                if(dataReceivedMarker.value !== 'NO DATA')
+                    expect(dataReceivedMarker.value.mil).toEqual(jasmine.any(Number));
                 dataReceivedMarker = false;
             });
         });
+
+        //For this test, you should enable a DTC in the simulator!
+//        it("can be requested/read", function () {
+//            dataReceivedMarker = false;
+//            serialOBDReader.requestValueByName("requestdtc");
+//            waitsFor(function () {
+//                return dataReceivedMarker;
+//            }, "Receiving time expired", 4000);
+//            runs(function () {
+//                expect(dataReceivedMarker.name).toEqual('requestdtc');
+//                if(dataReceivedMarker.value !== 'NO DATA')
+//                    expect(dataReceivedMarker.value.errors).toEqual(jasmine.any(Array));
+//                dataReceivedMarker = false;
+//            });
+//            waits(1000);
+//        });
         it("can be cleared", function () {
             dataReceivedMarker = false;
             serialOBDReader.requestValueByName("cleardtc");
@@ -181,20 +201,20 @@ describe("node-serial-obd", function () {
         });
     });
 
-/*  //Not supported with OBDsim.
-    describe("can read the VIN", function() { //Vehicle Identification number
-        it("can be sent", function(){
-            dataReceivedMarker = false;
-            serialOBDReader.requestValueByName("vin");
-            waitsFor(function () {
-                return dataReceivedMarker;
-            }, "Receiving time expired", 4000);
-            runs(function() {
-                expect(dataReceivedMarker).toEqual(jasmine.any(String));
-                dataReceivedMarker = false;
-            });
-        });
-    });*/
+    /*  //Not supported with OBDsim.
+     describe("can read the VIN", function() { //Vehicle Identification number
+     it("can be sent", function(){
+     dataReceivedMarker = false;
+     btOBDReader.requestValueByName("vin");
+     waitsFor(function () {
+     return dataReceivedMarker;
+     }, "Receiving time expired", 4000);
+     runs(function() {
+     expect(dataReceivedMarker).toEqual(jasmine.any(String));
+     dataReceivedMarker = false;
+     });
+     });
+     });*/
 
 
 

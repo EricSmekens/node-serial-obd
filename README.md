@@ -1,9 +1,7 @@
-serial-obd 0.0.2
+serial-obd 0.1.0
 ===============
 
 # USE bluetooth-obd if you use a bluetooth OBD-II Connector!
-# Development for this module does NOT continue. If you would like to make bluetooth-obd compatible, please co-operate with me on bluetooth-obd and we will see what we can do.
-
 
 # Serial communication for OBD-II ELM327 devices.
 This node module lets you communicate over a serial port with OBD-II ELM327 Connectors using Node.js.
@@ -16,6 +14,7 @@ This node module lets you communicate over a serial port with OBD-II ELM327 Conn
 # Pre-requests
 * If it's a Bluetooth ELM327, then it should already be paired and connected with rfcomm connect!
 * You might need to run it with SUDO! (If it says: serial port X is not ready!
+
 # Install
 `npm install node-serial-obd`
 # Documentation
@@ -35,8 +34,6 @@ serialOBDReader.on('dataReceived', function (data) {
 });
 
 serialOBDReader.on('connected', function (data) {
-    this.requestValueByName("vss"); //vss = vehicle speed sensor
-
     this.addPoller("vss");
     this.addPoller("rpm");
     this.addPoller("temp");
@@ -115,19 +112,20 @@ Connect/Open the serial port and add events to serialport. Also starts the inter
 
 Disconnects/closes the port.
 
-#### write(message)
+#### write(message, replies)
 
 Writes a message to the port. (Queued!) All write functions call this function.
 
-##### Params: 
+##### Params:
 
 * **string** *message* The PID or AT Command you want to send. Without \r or \n!
+* **number** *replies* The number of replies that are expected. Default = 0. 0 --> infinite
 
 #### requestValueByName(name)
 
 Writes a PID value by entering a pid supported name.
 
-##### Params: 
+##### Params:
 
 * **string** *name* Look into obdInfo.js for all PIDS.
 
@@ -135,7 +133,7 @@ Writes a PID value by entering a pid supported name.
 
 Adds a poller to the poller-array.
 
-##### Params: 
+##### Params:
 
 * **string** *name* Name of the poller you want to add.
 
@@ -143,7 +141,7 @@ Adds a poller to the poller-array.
 
 Removes an poller.
 
-##### Params: 
+##### Params:
 
 * **string** *name* Name of the poller you want to remove.
 
@@ -157,11 +155,11 @@ Writes all active pollers.
 
 #### startPolling()
 
-Starts polling.
+Starts polling. Lower interval than activePollers * 50 will probably give buffer overflows.
 
 ##### Params:
 
-* **number** *interval* Frequency how often all variables should be polled. (in ms) Default = 1000 ms.
+* **number** *interval* Frequency how often all variables should be polled. (in ms) If no value is given, then for each activePoller 75ms will be added.
 
 #### stopPolling()
 
@@ -169,4 +167,4 @@ Stops polling.
 
 # LICENSE
 
-This module is available under a [FreeBSD license](http://opensource.org/licenses/BSD-2-Clause), see also the [LICENSE file](https://raw.github.com/EricSmekens/node-serial-obd/master/LICENSE) for details.
+This module is available under a [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0.html), see also the [LICENSE file](https://raw.github.com/EricSmekens/node-serial-obd/master/LICENSE) for details.

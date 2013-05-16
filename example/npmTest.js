@@ -25,8 +25,6 @@ var serialOBDReader = new OBDReader("/dev/rfcomm0", options);
 var dataReceivedMarker = {};
 
 serialOBDReader.on('dataReceived', function (data) {
-    var currentDate = new Date();
-    console.log(currentDate.getTime());
     console.log(data);
     dataReceivedMarker = data;
 });
@@ -41,31 +39,7 @@ serialOBDReader.on('connected', function (data) {
     this.addPoller("map");
     this.addPoller("frp");
 
-    this.startPolling(3000);
-
-    //Custom Poller
-//    var self = this;
-//    var interval = setInterval(function () {
-//        self.write('0105');
-//        var currentDate = new Date();
-//        console.log(currentDate.getTime());
-//    }, 6000);
-//    setTimeout(function () {
-//        var interval2 = setInterval(function () {
-//            self.write('010D');
-//            var currentDate = new Date();
-//            console.log(currentDate.getTime());
-//        }, 6000);
-//        setTimeout(function () {
-//            var interval3 = setInterval(function () {
-//                self.write('010C');
-//                var currentDate = new Date();
-//                console.log(currentDate.getTime());
-//            }, 6000);
-//        }, 2000);
-//    }, 2000);
-
-
+    this.startPolling(1000);
 });
 
 

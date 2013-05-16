@@ -1,7 +1,7 @@
 {
   "name": "serial-obd",
-  "version": "0.0.3",
-  "description": "Package for communicating with a bluetooth OBD-II reader. Development STOPPED.",
+  "version": "0.1.0",
+  "description": "Package for communicating with a serial/usb OBD-II reader.",
   "author": {
     "name": "Eric Smekens",
     "email": "ericsmekens@msn.com",
@@ -30,7 +30,7 @@
     "OBD",
     "car",
     "serial",
-    "rfcomm"
+    "ecu"
   ],
   "license": "FreeBSD"
 }
