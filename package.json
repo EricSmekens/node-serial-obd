@@ -16,7 +16,7 @@
   },
   "main": "./lib/obd.js",
   "dependencies": {
-    "serialport": "1.1.0"
+    "serialport": "1.1.x"
   },
   "devDependencies": {},
   "engines": {
