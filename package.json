@@ -1,6 +1,6 @@
 {
   "name": "serial-obd",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Package for communicating with a serial/usb OBD-II reader.",
   "author": {
     "name": "Eric Smekens",
