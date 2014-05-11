@@ -16,7 +16,7 @@ This node module lets you communicate over a serial port with OBD-II ELM327 Conn
 * You might need to run it with SUDO! (If it says: serial port X is not ready!
 
 # Install
-`npm install node-serial-obd`
+`npm install serial-obd`
 # Documentation
 
 ## Basic usage
