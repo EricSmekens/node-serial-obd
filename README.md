@@ -1,6 +1,8 @@
 serial-obd 0.1.0
 ===============
 
+This version will only receive major updates that were done in bluetooth-obd. On request I will update/sync this module with bluetooth-obd as this version is less-used.
+
 # Serial communication for OBD-II ELM327 devices.
 This node module lets you communicate over a serial port with OBD-II ELM327 Connectors using Node.js.
 # Limitations
