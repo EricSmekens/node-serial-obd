@@ -21,7 +21,7 @@
 var OBDReader = require('../lib/obd.js');
 var options = {};
 options.baudrate = 115200;
-var serialOBDReader = new OBDReader("/dev/rfcomm0", options);
+var serialOBDReader = new OBDReader("COM4", options);
 var dataReceivedMarker = {};
 
 serialOBDReader.on('dataReceived', function (data) {

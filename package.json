@@ -1,6 +1,6 @@
 {
   "name": "serial-obd",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Package for communicating with a serial/usb OBD-II reader.",
   "author": {
     "name": "Eric Smekens",
@@ -16,11 +16,11 @@
   },
   "main": "./lib/obd.js",
   "dependencies": {
-    "serialport": "1.1.x"
+    "serialport": "1.6.x"
   },
   "devDependencies": {},
   "engines": {
-    "node" : ">= 0.8.x"
+    "node" : ">= 0.10.x"
   , "npm" : ">= 1.1.x"
   },
   "scripts": {

@@ -1,10 +1,11 @@
-serial-obd 0.1.0
+serial-obd 0.2.0
 ===============
 
-This version will only receive major updates that were done in bluetooth-obd. On request I will update/sync this module with bluetooth-obd as this version is less-used.
+This version will only receive updates that were done in bluetooth-obd. On request I will update/sync this module with bluetooth-obd as this version is less-used.
 
 # Serial communication for OBD-II ELM327 devices.
 This node module lets you communicate over a serial port with OBD-II ELM327 Connectors using Node.js.
+
 # Limitations
 * Only tested on Ubuntu
 * Only tested with rfcomm, and not with actual serial port yet.
@@ -15,7 +16,7 @@ This node module lets you communicate over a serial port with OBD-II ELM327 Conn
 
 # Pre-requests
 * If it's a Bluetooth ELM327, then it should already be paired and connected with rfcomm connect!
-* You might need to run it with SUDO! (If it says: serial port X is not ready!
+* You might need to run it with SUDO! (If it says: serial port X is not ready!)
 
 # Install
 `npm install serial-obd`
