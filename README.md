@@ -1,4 +1,4 @@
-serial-obd 0.2.0
+serial-obd 0.2.1
 ===============
 
 This version will only receive updates that were done in bluetooth-obd. On request I will update/sync this module with bluetooth-obd as this version is less-used.
