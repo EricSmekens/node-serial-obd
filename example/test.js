@@ -21,7 +21,7 @@
 var OBDReader = require('../lib/obd.js');
 var options = {};
 options.baudrate = 38400;
-var serialOBDReader = new OBDReader("COM4", options);
+var serialOBDReader = new OBDReader("/dev/obd-serial", options);
 var dataReceivedMarker = {};
 
 serialOBDReader.on('dataReceived', function (data) {
@@ -41,6 +41,16 @@ serialOBDReader.on('connected', function (data) {
 
     this.startPolling(1000);
 });
+
+serialOBDReader.on('error', function (data) {
+  console.log('Error: ' + data);
+	process.exit(1) ;
+});
+
+serialOBDReader.on('debug', function (data) {
+  console.log('Debug: ' + data);
+});
+
 
 
 serialOBDReader.connect();
