@@ -21,12 +21,44 @@
 var OBDReader = require('../lib/obd.js');
 var options = {};
 options.baudrate = 38400;
-var serialOBDReader = new OBDReader("/dev/obd-serial", options);
+var serialOBDReader = new OBDReader("/dev/ttyUSB0", options);
 var dataReceivedMarker = {};
 
 serialOBDReader.on('dataReceived', function (data) {
-    console.log(data);
+    console.log('dataReceived: '+JSON.stringify(data));
     dataReceivedMarker = data;
+});
+
+serialOBDReader.on('data', function (data) {
+  console.log('data: ' + JSON.stringify(data));
+});
+
+serialOBDReader.on('ecu', function (data) {
+  console.log('ecu: ' + data);
+});
+
+serialOBDReader.on('vss', function (data) {
+  console.log('vss: ' + data);
+});
+
+serialOBDReader.on('rpm', function (data) {
+  console.log('rpm: ' + data);
+});
+
+serialOBDReader.on('temp', function (data) {
+  console.log('temp: ' + data);
+});
+
+serialOBDReader.on('load_pct', function (data) {
+  console.log('load_pct: ' + data);
+});
+
+serialOBDReader.on('map', function (data) {
+  console.log('map: ' + data);
+});
+
+serialOBDReader.on('frp', function (data) {
+  console.log('frp: ' + data);
 });
 
 serialOBDReader.on('connected', function (data) {
@@ -44,13 +76,12 @@ serialOBDReader.on('connected', function (data) {
 
 serialOBDReader.on('error', function (data) {
   console.log('Error: ' + data);
-	process.exit(1) ;
+	process.exit(1);
 });
 
-serialOBDReader.on('debug', function (data) {
-  console.log('Debug: ' + data);
-});
-
+//serialOBDReader.on('debug', function (data) {
+//  console.log('Debug: ' + data);
+//});
 
 
 serialOBDReader.connect();
