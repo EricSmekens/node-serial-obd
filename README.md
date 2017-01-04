@@ -384,12 +384,12 @@ Parses a hexadecimal string to a reply object. Uses PIDS. (obdInfo.js)
 
 The original code-base from which this version is forked is licenced under the terms of the Apache 2.0 licence.  This fork is being relicensed (as permitted by the Apache 2.0 licence) under the terms of the GPLv3. 
 
-With the exception of the [obdInfo.js](blob/master/lib/obdInfo.js) file, this work is Copyright (c) 2016 Damien Clark, [Damo's World](https://damos.world)<br/> <br/>
+With the exception of the [obdInfo.js](lib/obdInfo.js) file, this work is Copyright (c) 2016 Damien Clark, [Damo's World](https://damos.world)<br/> <br/>
 Licenced under the terms of the
 [GPLv3](https://www.gnu.org/licenses/gpl.txt)<br/>
 ![GPLv3](https://www.gnu.org/graphics/gplv3-127x51.png "GPLv3")
 
-The [obdInfo.js](blob/master/lib/obdInfo.js) file is copyright (c) 2013 [Eric Smekens](https://github.com/EricSmekens).
+The [obdInfo.js](lib/obdInfo.js) file is copyright (c) 2013 [Eric Smekens](https://github.com/EricSmekens).
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
