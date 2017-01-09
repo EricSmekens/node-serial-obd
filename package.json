@@ -1,15 +1,20 @@
 {
   "name": "serial-obd",
-  "version": "0.2.1",
-  "description": "Package for communicating with a serial/usb OBD-II reader.",
+  "version": "0.3.0",
+  "description": "Package for communicating with a serial/usb OBD-II reader forked from https://github.com/EricSmekens/node-serial-obd.",
   "author": {
+    "name": "Damien Clark",
+    "email": "damo.clarky@gmail.com",
+    "url": "https://damos.world"
+  },
+	"contributors": {
     "name": "Eric Smekens",
     "email": "ericsmekens@msn.com",
     "url": "http://github.com/EricSmekens"
-  },
+	},
   "repository": {
     "type": "git",
-    "url": "git://github.com:EricSmekens/node-serial-obd.git"
+    "url": "git://github.com:damoclark/node-serial-obd.git"
   },
   "directories": {
     "lib": "./lib"
@@ -23,6 +28,10 @@
     "node" : ">= 0.10.x"
   , "npm" : ">= 1.1.x"
   },
+  "bugs": {
+    "url": "https://github.com/damoclark/node-serial-obd/issues"
+  },
+  "homepage": "https://github.com/damoclark/node-serial-obd#readme",
   "scripts": {
     "install": ""
   },
@@ -32,5 +41,5 @@
     "serial",
     "ecu"
   ],
-  "license": "Apache-2.0"
+  "license": "GPL-3.0+"
 }
