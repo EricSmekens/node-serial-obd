@@ -47,5 +47,3 @@ output.md
 # vi swap file
 *.swp
 
-# komodo IDE files
-*.komodoproject
