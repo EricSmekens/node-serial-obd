@@ -1,4 +1,4 @@
-serial-obd 0.2.1
+serial-obd 0.2.2
 ===============
 
 This version will only receive updates that were done in bluetooth-obd. On request I will update/sync this module with bluetooth-obd as this version is less-used.
@@ -27,7 +27,7 @@ This node module lets you communicate over a serial port with OBD-II ELM327 Conn
 ```javascript
 var OBDReader = require('serial-obd');
 var options = {};
-options.baudrate = 115200;
+options.baudRate = 115200;
 var serialOBDReader = new OBDReader("/dev/rfcomm0", options);
 var dataReceivedMarker = {};
 

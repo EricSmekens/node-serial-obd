@@ -20,7 +20,7 @@
 
 var OBDReader = require('../lib/obd.js');
 var options = {};
-options.baudrate = 115200;
+options.baudRate = 115200;
 var serialOBDReader = new OBDReader("COM4", options);
 var dataReceivedMarker = {};
 
