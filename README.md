@@ -51,7 +51,7 @@ serialOBDReader.connect();
 ```
 ## API
 
-###OBDReader
+### OBDReader
 
 #### Event: ('dataReceived', data)
 
