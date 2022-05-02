@@ -23,22 +23,22 @@ options.baudRate = 115200;
 const serialOBDReader = new OBDReader("COM4", options);
 let dataReceivedMarker = {};
 
-serialOBDReader.on("dataReceived", function (data) {
+serialOBDReader.on("dataReceived", (data) => {
     console.log(data);
     dataReceivedMarker = data;
 });
 
-serialOBDReader.on("connected", function (_data) {
+serialOBDReader.on("connected", (_data) => {
     //this.requestValueByName("vss"); //vss = vehicle speed sensor
 
-    this.addPoller("vss");
-    this.addPoller("rpm");
-    this.addPoller("temp");
-    this.addPoller("load_pct");
-    this.addPoller("map");
-    this.addPoller("frp");
+    serialOBDReader.addPoller("vss");
+    serialOBDReader.addPoller("rpm");
+    serialOBDReader.addPoller("temp");
+    serialOBDReader.addPoller("load_pct");
+    serialOBDReader.addPoller("map");
+    serialOBDReader.addPoller("frp");
 
-    this.startPolling(1000);
+    serialOBDReader.startPolling(1000);
 });
 
 serialOBDReader.connect();
