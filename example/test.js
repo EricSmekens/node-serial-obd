@@ -17,7 +17,7 @@
  * Author - Eric Smekens
  ******************************************************************************/
 
-var OBDReader = require("../lib/obd.js");
+import OBDReader from "../lib/obd.js";
 var options = {};
 options.baudRate = 115200;
 var serialOBDReader = new OBDReader("COM4", options);

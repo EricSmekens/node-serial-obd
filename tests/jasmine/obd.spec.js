@@ -18,11 +18,11 @@
  *
  * This code should be ran with jasmine-node.
  ******************************************************************************/
+import OBDReader from "../../lib/obd.js";
 
 describe("node-serial-obd", function () {
     "use strict";
-    var OBDReader, serialOBDReader, dataReceivedMarker, options;
-    OBDReader = require("../../lib/obd.js");
+    var serialOBDReader, dataReceivedMarker, options;
 
     options = {};
     options.baudrate = 115200;
