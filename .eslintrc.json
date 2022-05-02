@@ -1,0 +1,17 @@
+{
+    "extends": ["eslint:recommended", "prettier"],
+    "rules": {
+        "no-unused-vars": [
+            "warn",
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ]
+    },
+    "env": {
+        "node": true,
+        "es6": true
+    }
+}

@@ -17,19 +17,18 @@
  * Author - Eric Smekens
  ******************************************************************************/
 
-
-var OBDReader = require('../lib/obd.js');
+var OBDReader = require("../lib/obd.js");
 var options = {};
 options.baudRate = 115200;
 var serialOBDReader = new OBDReader("COM4", options);
 var dataReceivedMarker = {};
 
-serialOBDReader.on('dataReceived', function (data) {
+serialOBDReader.on("dataReceived", function (data) {
     console.log(data);
     dataReceivedMarker = data;
 });
 
-serialOBDReader.on('connected', function (data) {
+serialOBDReader.on("connected", function (_data) {
     //this.requestValueByName("vss"); //vss = vehicle speed sensor
 
     this.addPoller("vss");
@@ -41,6 +40,5 @@ serialOBDReader.on('connected', function (data) {
 
     this.startPolling(1000);
 });
-
 
 serialOBDReader.connect();

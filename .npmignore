@@ -7,3 +7,6 @@ log.json
 *.iml
 *.log
 output.md
+
+.prettierrc
+.eslintrc.json

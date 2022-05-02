@@ -1,36 +1,42 @@
 {
-  "name": "serial-obd",
-  "version": "0.2.2",
-  "description": "Package for communicating with a serial/usb OBD-II reader.",
-  "author": {
-    "name": "Eric Smekens",
-    "email": "ericsmekens@msn.com",
-    "url": "http://github.com/EricSmekens"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com:EricSmekens/node-serial-obd.git"
-  },
-  "directories": {
-    "lib": "./lib"
-  },
-  "main": "./lib/obd.js",
-  "dependencies": {
-    "serialport": "^10.4.0"
-  },
-  "devDependencies": {},
-  "engines": {
-    "node": ">= 0.10.x",
-    "npm": ">= 1.1.x"
-  },
-  "scripts": {
-    "install": ""
-  },
-  "keywords": [
-    "OBD",
-    "car",
-    "serial",
-    "ecu"
-  ],
-  "license": "Apache-2.0"
+    "name": "serial-obd",
+    "version": "0.2.2",
+    "description": "Package for communicating with a serial/usb OBD-II reader.",
+    "author": {
+        "name": "Eric Smekens",
+        "email": "ericsmekens@msn.com",
+        "url": "http://github.com/EricSmekens"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com:EricSmekens/node-serial-obd.git"
+    },
+    "directories": {
+        "lib": "./lib"
+    },
+    "main": "./lib/obd.js",
+    "dependencies": {
+        "serialport": "^10.4.0"
+    },
+    "devDependencies": {
+        "eslint-config-prettier": "^8.5.0",
+        "prettier": "^2.6.2"
+    },
+    "engines": {
+        "node": ">= 0.10.x",
+        "npm": ">= 1.1.x"
+    },
+    "scripts": {
+        "install": "",
+        "format": "prettier --write .",
+        "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/ --ignore-pattern tests/",
+        "fix": "eslint \"**/*.js\" --ignore-pattern node_modules/ --ignore-pattern tests/ --fix"
+    },
+    "keywords": [
+        "OBD",
+        "car",
+        "serial",
+        "ecu"
+    ],
+    "license": "Apache-2.0"
 }

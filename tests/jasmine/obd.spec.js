@@ -20,16 +20,16 @@
  ******************************************************************************/
 
 describe("node-serial-obd", function () {
-    'use strict';
+    "use strict";
     var OBDReader, serialOBDReader, dataReceivedMarker, options;
-    OBDReader = require('../../lib/obd.js');
+    OBDReader = require("../../lib/obd.js");
 
     options = {};
     options.baudrate = 115200;
     serialOBDReader = new OBDReader("/dev/rfcomm0", options);
     dataReceivedMarker = {}; //New object
 
-    serialOBDReader.on('dataReceived', function (data) {
+    serialOBDReader.on("dataReceived", function (data) {
         console.log(data);
         dataReceivedMarker = data;
     });
@@ -51,53 +51,60 @@ describe("node-serial-obd", function () {
 
     it("can connect to a bluetooth serial port", function () {
         serialOBDReader.connect();
-        waitsFor(function () {
-            return serialOBDReader.connected;
-        }, "It took too long to connect.", 20000);
+        waitsFor(
+            function () {
+                return serialOBDReader.connected;
+            },
+            "It took too long to connect.",
+            20000
+        );
         runs(function () {
             expect(serialOBDReader.connected).toEqual(true);
             waits(5000); //Waiting for init strings to be sent and received!
         });
-
-
     });
 
     describe("the write function", function () {
         it("can write ascii to the obd-module", function () {
             dataReceivedMarker = false;
-            serialOBDReader.write('010C'); //010C stands for RPM
+            serialOBDReader.write("010C"); //010C stands for RPM
         });
 
         it("can receive and convert the RPM-hex value to something right", function () {
-            waitsFor(function () {
-                return dataReceivedMarker;
-            }, "Receiving time expired", 4000);
+            waitsFor(
+                function () {
+                    return dataReceivedMarker;
+                },
+                "Receiving time expired",
+                4000
+            );
             runs(function () {
                 expect(dataReceivedMarker).toEqual(jasmine.any(Object));
                 expect(dataReceivedMarker.mode).toEqual(jasmine.any(String));
                 expect(dataReceivedMarker.pid).toEqual(jasmine.any(String));
                 expect(dataReceivedMarker.name).toEqual(jasmine.any(String));
-                expect(!isNaN(dataReceivedMarker.value));//Number somehow crashes.
+                expect(!isNaN(dataReceivedMarker.value)); //Number somehow crashes.
             });
-
-
         });
 
         it("can retrieve a value by name", function () {
             dataReceivedMarker = false;
             serialOBDReader.requestValueByName("vss"); //vss = vehicle speed sensor
 
-            waitsFor(function () {
-                return dataReceivedMarker;
-            }, "Receiving time expired", 4000);
-            runs(function() {
+            waitsFor(
+                function () {
+                    return dataReceivedMarker;
+                },
+                "Receiving time expired",
+                4000
+            );
+            runs(function () {
                 expect(dataReceivedMarker).toEqual(jasmine.any(Object));
                 expect(dataReceivedMarker.mode).toEqual(jasmine.any(String));
                 expect(dataReceivedMarker.pid).toEqual(jasmine.any(String));
                 expect(dataReceivedMarker.name).toEqual("vss");
-                expect(!isNaN(dataReceivedMarker.value));//Number somehow crashes.
+                expect(!isNaN(dataReceivedMarker.value)); //Number somehow crashes.
             });
-
         });
     });
 
@@ -114,23 +121,31 @@ describe("node-serial-obd", function () {
             dataReceivedMarker = false;
             serialOBDReader.addPoller("vss");
             serialOBDReader.startPolling(1000);
-            waitsFor(function () {
-                return dataReceivedMarker;
-            }, "Receiving time expired", 12000);
+            waitsFor(
+                function () {
+                    return dataReceivedMarker;
+                },
+                "Receiving time expired",
+                12000
+            );
             runs(function () {
                 expect(dataReceivedMarker).toEqual(jasmine.any(Object));
                 expect(dataReceivedMarker.mode).toEqual(jasmine.any(String));
                 expect(dataReceivedMarker.pid).toEqual(jasmine.any(String));
                 expect(dataReceivedMarker.name).toEqual("vss");
-                expect(!isNaN(dataReceivedMarker.value));//Number somehow crashes.
+                expect(!isNaN(dataReceivedMarker.value)); //Number somehow crashes.
 
                 dataReceivedMarker = false;
             });
 
             //Wait second time without calling anything since last data reset. --> If data comes in, polling works.
-            waitsFor(function () {
-                return dataReceivedMarker;
-            }, "Receiving time expired", 12000); //Time for polling.
+            waitsFor(
+                function () {
+                    return dataReceivedMarker;
+                },
+                "Receiving time expired",
+                12000
+            ); //Time for polling.
             runs(function () {
                 expect(dataReceivedMarker).toEqual(jasmine.any(Object));
                 expect(dataReceivedMarker.mode).toEqual(jasmine.any(String));
@@ -153,47 +168,63 @@ describe("node-serial-obd", function () {
             runs(function () {
                 expect(dataReceivedMarker).toEqual(false);
             });
-
         });
     });
 
-    describe("DTC", function () { //Diagnostic trouble code
+    describe("DTC", function () {
+        //Diagnostic trouble code
         it("can be counted", function () {
             dataReceivedMarker = false;
-            serialOBDReader.write('0101', 1); //Count DTC
-            waitsFor(function () {
-                return dataReceivedMarker;
-            }, "Receiving time expired", 4000);
+            serialOBDReader.write("0101", 1); //Count DTC
+            waitsFor(
+                function () {
+                    return dataReceivedMarker;
+                },
+                "Receiving time expired",
+                4000
+            );
             runs(function () {
-                expect(!isNaN(dataReceivedMarker.value.mil) || dataReceivedMarker.value === 'NO DATA');
-                expect(!isNaN(dataReceivedMarker.value.numberOfErrors) || dataReceivedMarker.value === 'NO DATA');
-                if(dataReceivedMarker.value !== 'NO DATA')
-                    expect(dataReceivedMarker.value.mil).toEqual(jasmine.any(Number));
+                expect(
+                    !isNaN(dataReceivedMarker.value.mil) ||
+                        dataReceivedMarker.value === "NO DATA"
+                );
+                expect(
+                    !isNaN(dataReceivedMarker.value.numberOfErrors) ||
+                        dataReceivedMarker.value === "NO DATA"
+                );
+                if (dataReceivedMarker.value !== "NO DATA")
+                    expect(dataReceivedMarker.value.mil).toEqual(
+                        jasmine.any(Number)
+                    );
                 dataReceivedMarker = false;
             });
         });
 
         //For this test, you should enable a DTC in the simulator!
-//        it("can be requested/read", function () {
-//            dataReceivedMarker = false;
-//            serialOBDReader.requestValueByName("requestdtc");
-//            waitsFor(function () {
-//                return dataReceivedMarker;
-//            }, "Receiving time expired", 4000);
-//            runs(function () {
-//                expect(dataReceivedMarker.name).toEqual('requestdtc');
-//                if(dataReceivedMarker.value !== 'NO DATA')
-//                    expect(dataReceivedMarker.value.errors).toEqual(jasmine.any(Array));
-//                dataReceivedMarker = false;
-//            });
-//            waits(1000);
-//        });
+        //        it("can be requested/read", function () {
+        //            dataReceivedMarker = false;
+        //            serialOBDReader.requestValueByName("requestdtc");
+        //            waitsFor(function () {
+        //                return dataReceivedMarker;
+        //            }, "Receiving time expired", 4000);
+        //            runs(function () {
+        //                expect(dataReceivedMarker.name).toEqual('requestdtc');
+        //                if(dataReceivedMarker.value !== 'NO DATA')
+        //                    expect(dataReceivedMarker.value.errors).toEqual(jasmine.any(Array));
+        //                dataReceivedMarker = false;
+        //            });
+        //            waits(1000);
+        //        });
         it("can be cleared", function () {
             dataReceivedMarker = false;
             serialOBDReader.requestValueByName("cleardtc");
-            waitsFor(function () {
-                return dataReceivedMarker;
-            }, "Receiving time expired", 4000);
+            waitsFor(
+                function () {
+                    return dataReceivedMarker;
+                },
+                "Receiving time expired",
+                4000
+            );
             runs(function () {
                 expect(dataReceivedMarker.value).toEqual(jasmine.any(String));
                 dataReceivedMarker = false;
@@ -216,18 +247,18 @@ describe("node-serial-obd", function () {
      });
      });*/
 
-
-
     it("can close the bluetooth serial port", function () {
         serialOBDReader.disconnect();
-        waitsFor(function () {
-            return !(serialOBDReader.connected);
-        }, "Disconnect time expired", 2500); //Time for disconnect.
+        waitsFor(
+            function () {
+                return !serialOBDReader.connected;
+            },
+            "Disconnect time expired",
+            2500
+        ); //Time for disconnect.
         runs(function () {
             expect(serialOBDReader.connected).toEqual(false);
             serialOBDReader = undefined;
         });
-
     });
-
 });
