@@ -22,12 +22,11 @@ import OBDReader from "../../lib/obd.js";
 
 describe("node-serial-obd", function () {
     "use strict";
-    var serialOBDReader, dataReceivedMarker, options;
 
-    options = {};
+    const options = {};
     options.baudrate = 115200;
-    serialOBDReader = new OBDReader("/dev/rfcomm0", options);
-    dataReceivedMarker = {}; //New object
+    let serialOBDReader = new OBDReader("/dev/rfcomm0", options);
+    let dataReceivedMarker = {}; //New object
 
     serialOBDReader.on("dataReceived", function (data) {
         console.log(data);

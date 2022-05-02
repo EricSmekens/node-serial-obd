@@ -18,10 +18,10 @@
  ******************************************************************************/
 
 import OBDReader from "../lib/obd.js";
-var options = {};
+const options = {};
 options.baudRate = 115200;
-var serialOBDReader = new OBDReader("COM4", options);
-var dataReceivedMarker = {};
+const serialOBDReader = new OBDReader("COM4", options);
+let dataReceivedMarker = {};
 
 serialOBDReader.on("dataReceived", function (data) {
     console.log(data);
