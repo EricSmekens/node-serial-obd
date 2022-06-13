@@ -76,7 +76,7 @@ Emitted for debug purposes.
 
 -   message - the debug message
 
-#### OBDReader(portName, options)
+#### OBDReader(portName, options, obdReaderOptions)
 
 Creates an instance of OBDReader.
 
@@ -85,6 +85,10 @@ Creates an instance of OBDReader.
 -   **string** _portName_ Port that will be connected to. For example: &quot;/dev/rfcomm0&quot;
 
 -   **Object** _options_ Object that contains options, e.g.: baudrate, databits, stopbits, flowcontrol. Same options serialport module uses.
+
+-   **Object** _readerOptions_ Object that contains options for the OBDReader.
+
+    -   **boolean** _readerOptions.queueLength_ Number of messages that can be queued. _default: 256_
 
 #### getPIDByName(Name)
 
