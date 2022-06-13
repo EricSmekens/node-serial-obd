@@ -8,7 +8,7 @@ This node module lets you communicate over a serial port with OBD-II ELM327 Conn
 
 # Limitations
 
--   Only tested on Ubuntu
+-   Only tested on Ubuntu and Windows 10.
 -   Only tested with rfcomm, and not with actual serial port yet.
 -   Only tested on ELM327 devices.
 -   Not all OBD-II Commands are implemented yet.
@@ -29,26 +29,28 @@ This node module lets you communicate over a serial port with OBD-II ELM327 Conn
 ## Basic usage
 
 ```javascript
-var OBDReader = require("serial-obd");
-var options = {};
+import OBDReader from "../lib/obd.js";
+const options = {};
 options.baudRate = 115200;
-var serialOBDReader = new OBDReader("/dev/rfcomm0", options);
-var dataReceivedMarker = {};
+const serialOBDReader = new OBDReader("COM4", options);
+let dataReceivedMarker = {};
 
-serialOBDReader.on("dataReceived", function (data) {
+serialOBDReader.on("dataReceived", (data) => {
     console.log(data);
     dataReceivedMarker = data;
 });
 
-serialOBDReader.on("connected", function (data) {
-    this.addPoller("vss");
-    this.addPoller("rpm");
-    this.addPoller("temp");
-    this.addPoller("load_pct");
-    this.addPoller("map");
-    this.addPoller("frp");
+serialOBDReader.on("connected", (_data) => {
+    //this.requestValueByName("vss"); //vss = vehicle speed sensor
 
-    this.startPolling(2000); //Polls all added pollers each 2000 ms.
+    serialOBDReader.addPoller("vss");
+    serialOBDReader.addPoller("rpm");
+    serialOBDReader.addPoller("temp");
+    serialOBDReader.addPoller("load_pct");
+    serialOBDReader.addPoller("map");
+    serialOBDReader.addPoller("frp");
+
+    serialOBDReader.startPolling(1000);
 });
 
 serialOBDReader.connect();
@@ -68,7 +70,11 @@ Emitted when data is read from the OBD-II connector.
 
 Emitted when the connection is set up (port is open).
 
--   data - the data that was read and parsed to a reply object
+#### Event: ('debug', message)
+
+Emitted for debug purposes.
+
+-   message - the debug message
 
 #### OBDReader(portName, options)
 
